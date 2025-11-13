@@ -14,7 +14,7 @@ const DisabledButton = ({ children, className = '', ariaLabel }) => (
     disabled
     aria-disabled="true"
     aria-label={ariaLabel || 'Coming Soon'}
-    className={`w-full sm:w-auto inline-flex items-center justify-center rounded-md border border-gray-300 bg-gray-200 text-gray-500 cursor-not-allowed px-5 py-3 font-semibold shadow-sm transition-all duration-200 ${className}`}
+    className={`w-full sm:w-auto inline-flex items-center justify-center rounded-md border border-gray-300 bg-gray-200 text-gray-500 cursor-not-allowed px-5 py-3 font-semibold shadow-sm transition-all duration-200 min-h-[44px] ${className}`}
   >
     {children}
   </button>
@@ -46,7 +46,7 @@ function App() {
           aria-labelledby="hero-heading"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-orange-50 via-white to-white" aria-hidden="true" />
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28">
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <div>
                 <p className="inline-flex items-center gap-2 rounded-full bg-white/90 ring-1 ring-gray-200 px-3 py-1 text-sm font-medium text-gray-700 shadow-sm">
@@ -234,7 +234,7 @@ function App() {
                 {q:'Analytics real-time?', a:'Dashboard menampilkan data yang diperbarui secara berkala dengan fokus pada akurasi klik & konversi.'},
               ].map((item, idx) => (
                 <details key={idx} className="group p-4 sm:p-6 open:bg-gray-50">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-2">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-2 py-3 min-h-[44px]">
                     <h3 className="font-semibold text-lg">{item.q}</h3>
                     <span className="transition-transform duration-200 group-open:rotate-45 text-gray-500" aria-hidden="true">➕</span>
                   </summary>
@@ -246,7 +246,7 @@ function App() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="py-16 sm:py-20 lg:py-24">
+        <section className="py-12 sm:py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="relative overflow-hidden rounded-3xl">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600" aria-hidden="true" />
@@ -278,10 +278,10 @@ function App() {
               <a
                 href="#"
                 aria-label="Instagram"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-700 hover:-translate-y-0.5 hover:shadow transition duration-200"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-gray-700 hover:-translate-y-0.5 hover:shadow transition duration-200"
               >
                 {/* Instagram glyph */}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2"/>
                   <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2"/>
                   <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
@@ -290,10 +290,10 @@ function App() {
               <a
                 href="#"
                 aria-label="TikTok"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 text-gray-700 hover:-translate-y-0.5 hover:shadow transition duration-200"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-gray-700 hover:-translate-y-0.5 hover:shadow transition duration-200"
               >
                 {/* Simple TikTok glyph */}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M15 4c.7 1.6 2.1 2.9 3.9 3.2V10c-1.7 0-3.3-.6-4.5-1.7v6.1a5.4 5.4 0 1 1-3-4.8v2.6a2.4 2.4 0 1 0 1.5 2.2V4h2.1z" fill="currentColor"/>
                 </svg>
               </a>
