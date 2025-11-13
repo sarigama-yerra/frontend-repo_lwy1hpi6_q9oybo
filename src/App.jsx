@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const GradientText = ({ children, className = '' }) => (
   <span
@@ -21,6 +21,23 @@ const DisabledButton = ({ children, className = '', ariaLabel }) => (
 );
 
 function App() {
+  const [openIndex, setOpenIndex] = useState(null);
+  const heroRef = useRef(null);
+
+  // Smooth scroll handler for the indicator
+  const handleScrollDown = () => {
+    const next = document.getElementById('problem-section');
+    if (next) next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // FAQ data
+  const faqs = [
+    {q:'Kapan bisa dipakai?', a:'Kami sedang di tahap Beta tertutup. Daftar tunggu akan dibuka segera untuk batch pertama.'},
+    {q:'Ada biaya setup?', a:'Tidak ada biaya setup. Kamu cukup berlangganan Rp 300.000 per bulan saat peluncuran.'},
+    {q:'Platform affiliate apa?', a:'Kami akan mendukung beberapa merchant fashion Indonesia dan internasional. Detail akan diumumkan saat peluncuran.'},
+    {q:'Analytics real-time?', a:'Dashboard menampilkan data yang diperbarui secara berkala dengan fokus pada akurasi klik & konversi.'},
+  ];
+
   return (
     <div className="min-h-screen antialiased text-gray-900 bg-white">
       {/* NAV */}
@@ -44,6 +61,7 @@ function App() {
         <section
           className="relative overflow-hidden"
           aria-labelledby="hero-heading"
+          ref={heroRef}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-orange-50 via-white to-white" aria-hidden="true" />
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
@@ -69,7 +87,7 @@ function App() {
               {/* Mockup visual */}
               <div className="relative">
                 <div className="mx-auto w-full max-w-md lg:max-w-lg">
-                  <div className="rounded-2xl border border-gray-200 bg-white shadow-xl p-3">
+                  <div className="rounded-2xl border border-gray-200 bg-white shadow-xl p-3 animate-float-3s">
                     <div className="aspect-[9/19.5] rounded-xl overflow-hidden border border-gray-200 bg-gradient-to-br from-orange-100 via-white to-orange-50 relative">
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="mx-auto w-5/6">
@@ -89,13 +107,27 @@ function App() {
                   </div>
                   <p className="sr-only">Mockup tampilan halaman personal Fashbreew untuk memajang OOTD dan produk.</p>
                 </div>
+
+                {/* Scroll Indicator */}
+                <button
+                  type="button"
+                  onClick={handleScrollDown}
+                  className="group absolute -bottom-6 left-1/2 -translate-x-1/2 inline-flex flex-col items-center gap-1 focus:outline-none"
+                  aria-label="Scroll ke bawah untuk lanjut"
+                >
+                  <span className="sr-only">Scroll down</span>
+                  <span className="h-10 w-6 rounded-full border-2 border-orange-500/60 relative flex items-start justify-center p-1">
+                    <span className="h-2 w-1 rounded-full bg-orange-500/80 animate-bounce-slow" />
+                  </span>
+                  <span className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors">Scroll</span>
+                </button>
               </div>
             </div>
           </div>
         </section>
 
         {/* PROBLEM */}
-        <section aria-labelledby="problem-heading" className="py-12 sm:py-16 lg:py-20">
+        <section id="problem-section" aria-labelledby="problem-heading" className="py-12 sm:py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 id="problem-heading" className="text-2xl sm:text-3xl font-bold">Kenapa Perlu Fashbreew?</h2>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -106,7 +138,7 @@ function App() {
               ].map((item, idx) => (
                 <article
                   key={idx}
-                  className="rounded-xl bg-gray-50 border border-gray-100 p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md"
+                  className="rounded-xl bg-gray-50 border border-gray-100 p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md hover:scale-[1.02]"
                 >
                   <div className="text-3xl" aria-hidden="true">{item.icon}</div>
                   <h3 className="mt-3 text-lg font-semibold">{item.title}</h3>
@@ -132,7 +164,7 @@ function App() {
               ].map((text, idx) => (
                 <article
                   key={idx}
-                  className="rounded-xl bg-white border border-gray-100 p-6 shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl"
+                  className="rounded-xl bg-white border border-gray-100 p-6 shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl hover:scale-[1.02]"
                 >
                   <h3 className="text-lg font-semibold">{text}</h3>
                 </article>
@@ -155,7 +187,7 @@ function App() {
                   <span className="absolute -start-3 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold shadow-lg">
                     {s.n}
                   </span>
-                  <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm sm:p-6">
+                  <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm sm:p-6 transition-transform hover:-translate-y-0.5 hover:shadow-md hover:scale-[1.02]">
                     <h3 className="text-lg font-semibold">{s.title}</h3>
                     <p className="mt-1 text-gray-600">{s.desc}</p>
                   </div>
@@ -213,7 +245,7 @@ function App() {
                 {icon:'📷', title:'Content Creator'},
                 {icon:'🌟', title:'Micro Influencer'},
               ].map((u, idx) => (
-                <article key={idx} className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
+                <article key={idx} className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md hover:scale-[1.02]">
                   <div className="text-3xl" aria-hidden="true">{u.icon}</div>
                   <h3 className="mt-3 text-lg font-semibold">{u.title}</h3>
                 </article>
@@ -222,25 +254,38 @@ function App() {
           </div>
         </section>
 
-        {/* FAQ */}
+        {/* FAQ with animated expand/collapse */}
         <section aria-labelledby="faq-heading" className="py-12 sm:py-16 lg:py-20 bg-white">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <h2 id="faq-heading" className="text-2xl sm:text-3xl font-bold">FAQ</h2>
             <div className="mt-6 divide-y divide-gray-200 border border-gray-200 rounded-xl">
-              {[
-                {q:'Kapan bisa dipakai?', a:'Kami sedang di tahap Beta tertutup. Daftar tunggu akan dibuka segera untuk batch pertama.'},
-                {q:'Ada biaya setup?', a:'Tidak ada biaya setup. Kamu cukup berlangganan Rp 300.000 per bulan saat peluncuran.'},
-                {q:'Platform affiliate apa?', a:'Kami akan mendukung beberapa merchant fashion Indonesia dan internasional. Detail akan diumumkan saat peluncuran.'},
-                {q:'Analytics real-time?', a:'Dashboard menampilkan data yang diperbarui secara berkala dengan fokus pada akurasi klik & konversi.'},
-              ].map((item, idx) => (
-                <details key={idx} className="group p-4 sm:p-6 open:bg-gray-50">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-2 py-3 min-h-[44px]">
-                    <h3 className="font-semibold text-lg">{item.q}</h3>
-                    <span className="transition-transform duration-200 group-open:rotate-45 text-gray-500" aria-hidden="true">➕</span>
-                  </summary>
-                  <p className="mt-3 text-gray-600">{item.a}</p>
-                </details>
-              ))}
+              {faqs.map((item, idx) => {
+                const isOpen = openIndex === idx;
+                return (
+                  <div key={idx} className="p-4 sm:p-6">
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-panel-${idx}`}
+                      onClick={() => setOpenIndex(isOpen ? null : idx)}
+                      className="w-full flex items-center justify-between gap-2 py-3 text-left min-h-[44px] focus:outline-none"
+                    >
+                      <h3 className="font-semibold text-lg">{item.q}</h3>
+                      <span className={`transition-transform duration-200 text-gray-500 ${isOpen ? 'rotate-45' : ''}`} aria-hidden="true">➕</span>
+                    </button>
+                    <div
+                      id={`faq-panel-${idx}`}
+                      role="region"
+                      aria-hidden={!isOpen}
+                      className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} overflow-hidden`}
+                    >
+                      <div className="min-h-0">
+                        <p className="mt-2 text-gray-600">{item.a}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

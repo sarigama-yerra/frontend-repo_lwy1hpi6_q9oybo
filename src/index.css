@@ -43,4 +43,24 @@
     --tw-exit-translate-x: initial;
     --tw-exit-translate-y: initial;
   }
+
+  /* Floating animation for hero mockup */
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .animate-float-3s {
+    animation: floaty 3s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Slow subtle bounce for scroll indicator */
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .animate-bounce-slow {
+    animation: bounce-slow 1.8s ease-in-out infinite;
+    will-change: transform;
+  }
 }
